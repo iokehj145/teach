@@ -1,6 +1,5 @@
-array = []
-a = []
 import random
+array = {}
 # функція вибірки(Виглядає ніби сходи якщо не дивитись на кінець)
 def sel_sort(array):
     n = len(array)# щоб двічі не повторюватися
@@ -13,13 +12,11 @@ def sel_sort(array):
     return array
 # генерація масиву.
 def arr_mad(n):
-  for j in range(1,n+1): # наповнюємо спочатку перший массив з чіткою послідовністю
-     a.append(j)
-  for i in range(n): # а теперь у випадковій послідовності кидаємо все ті самі елементи в інший массив
-     num = random.choice(a)
-     a.remove(num) # видалємо елементи з першого массиву для того щоб двічі не повторювалися
-     array.append(num)
+  array = list(range(1, n + 1)) # генерація массиву але з чіткою послідовністю
+  print(array)
+  random.shuffle(array) # Мішає елементи між собою
+  return array
 n=int(input("Число елементів массиву: ")) 
-arr_mad(n)
+array = arr_mad(n)
 print("Не відсортований массив: ", array)
 print('А теперь відсортований: ', sel_sort(array))
