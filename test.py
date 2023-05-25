@@ -15,6 +15,9 @@ class Sort:
          array = Sort.bubble_sort(array)
         count = time.time() - start
         return array, count
+        elif fun == 4:
+         array = Sort.bogoSort(array)
+        count = round(time.time() - start, 4)
     def sel_sort(array):
         n = len(array)
         for i in range(n):
@@ -49,10 +52,19 @@ class Sort:
      while check == False:
        arr, check = Sort.cycle(n, arr, check)
      return arr
-
+    def bogoSort(array):
+     while Sort.bog_check(array)==False:
+        random.shuffle(array)
+     return array
+    def bog_check(array):
+     n = len(array)
+     for i in range(0, n-1):
+         if (array[i] > array[i+1] ):
+             return False
+     return True
 n = int(input("Число елементів масиву: "))
 array = Sort.mk_arr(n)
-fun = int(input("1--quicksort, 2--selection sort, 3--bubble sort\nОберість функцію: "))
+fun = int(input("1--quicksort, 2--selection sort, 3--bubble sort, 4--Bogo sort\nОберість функцію: "))
 print('Не відсортований масив: ', array)
 array, count =Sort.fun_sel(fun, array)
 print('А теперь відсортований: ', array, '\nЧас:', count)
