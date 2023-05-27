@@ -1,11 +1,12 @@
 import random
 import time
 class Sort:
-    def mk_arr(n):
+    def mk_arr(n): # Створення массиву
         array = list(range(1, n + 1))
-        random.shuffle(array)
+        random.shuffle(array) # міняє місцями елементи у випадкову послідовність
         return array
-    def fun_sel(fun, array):
+    
+    def fun_sel(fun, array): # функція для виклику інших функцій
         start = time.time()
         if fun == 1:
          array = Sort.quicksort(array)
@@ -13,12 +14,12 @@ class Sort:
          array = Sort.sel_sort(array)
         elif fun == 3:
          array = Sort.bubble_sort(array)
-        count = time.time() - start
-        return array, count
         elif fun == 4:
          array = Sort.bogoSort(array)
         count = round(time.time() - start, 4)
-    def sel_sort(array):
+        return array, count
+    
+    def sel_sort(array): # Вибіркове сортування
         n = len(array)
         for i in range(n):
             minimal = i
@@ -28,7 +29,7 @@ class Sort:
             array[minimal], array[i] = array[i], array[minimal]
         return array
 
-    def quicksort(array):
+    def quicksort(array): # Швидке сортування
      if len(array) <= 1:
          return array
      pivot = array[len(array) // 2]
@@ -37,22 +38,21 @@ class Sort:
      right = [x for x in array if x > pivot]
      return Sort.quicksort(left) + middle + Sort.quicksort(right)
 
-    def cycle(n, arr, check):
-     check = True
-     for i in range(0, n-1):
+    def cycle(n, arr, check): # бульбашкове сортування
+      check = True
+      for i in range(0, n-1):
          if arr[i] > arr[i+1]:
            arr[i],arr[i+1] = arr[i+1],arr[i]
            check = False
-         else:
-         	pass
-     return arr, check
+      return arr, check
     def bubble_sort(arr):
      n = len(arr)
      check = False
      while check == False:
        arr, check = Sort.cycle(n, arr, check)
      return arr
-    def bogoSort(array):
+    
+    def bogoSort(array): # Бого сорт
      while Sort.bog_check(array)==False:
         random.shuffle(array)
      return array
