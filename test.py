@@ -1,5 +1,6 @@
 import random
 import time
+
 class Sort:
     def __init__(self, n): # ініціалізація масиву
         self.n = n
@@ -18,9 +19,10 @@ class Sort:
          self.bogoSort()
         elif fun == 5:
          self.bubble_sort()
+        elif fun == 6:
+            self.array = self.merge_sort(self.array)
         count = round(time.time() - start, 4)
         return self.array, count
-
     def insertion_sort(self):  # сортування вставками
         for i in range(1, self.n):
           key = self.array[i]
@@ -79,10 +81,31 @@ class Sort:
                 return False
         return True
 
+    def merge_sort(self, arra): # сортування злиттям
+        if len(arra) <= 1:
+            return arra
+        mid = len(arra) // 2
+        left_arr = self.merge_sort(arra[:mid])
+        right_arr = self.merge_sort(arra[mid:])
+        return self.merge(left=left_arr, right=right_arr)
+    def merge(self, left, right):
+        merged = []
+        ind_le, ind_ri = 0, 0
+        while ind_le < len(left) and ind_ri < len(right):
+            if left[ind_le] < right[ind_ri]:
+                merged.append(left[ind_le])
+                ind_le += 1
+            else:
+                merged.append(right[ind_ri])
+                ind_ri += 1
+        merged.extend(left[ind_le:])
+        merged.extend(right[ind_ri:])
+        return merged
+
 while True:
   n = int(input("Число елементів масиву: "))
   array = Sort(n)
-  fun = int(input("1--quicksort, 2--selection sort, 3--insertion sort, \n4--Bogo sort, 5--bubble sort\nОберість функцію: "))
+  fun = int(input("1--quicksort, 2--selection sort, 3--insertion sort, \n4--Bogo sort, 5--bubble sort, 6--merge sort\nОберість функцію: "))
   print('Не відсортований масив: ', array.array)
   array, count =array.fun_sel(fun)
   print('А теперь відсортований: ', array, '\nЧас:', count)
